@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>音声文字起こし修正ツール</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>音声文字起こし修正ツール</h1>
+        <div class="theme-switch-wrapper">
+            <label class="theme-switch" for="theme-toggle">
+                <input type="checkbox" id="theme-toggle" />
+                <span class="slider round"></span>
+            </label>
+            <span class="theme-label">ダークモード</span>
+        </div>
+        <button id="show-shortcuts" class="help-button" title="ショートカットを表示">⌨️ ショートカット</button>
+    </header>
+    
+    <main>
+        <section class="audio-panel">
+            <div class="file-inputs">
+                <div class="input-group">
+                    <label for="audio-file">音声ファイル (.mp3/.wav):</label>
+                    <input type="file" id="audio-file" accept=".mp3,.wav">
+                </div>
+                <div class="input-group">
+                    <label for="text-file">文字起こしファイル (.txt):</label>
+                    <input type="file" id="text-file" accept=".txt">
+                </div>
+            </div>
+
+            <div class="audio-controls">
+                <div class="player-controls">
+                    <button id="rewind" title="5秒巻き戻し">⏪</button>
+                    <button id="play-pause" title="再生/停止">▶️</button>
+                    <button id="forward" title="5秒早送り">⏩</button>
+                </div>
+                
+                <div class="slider-container">
+                    <span id="current-time">00:00:00</span>
+                    <input type="range" id="seek-slider" min="0" max="100" value="0">
+                    <span id="duration">00:00:00</span>
+                </div>
+                
+                <div class="speed-controls">
+                    <label for="playback-speed">再生速度:</label>
+                    <select id="playback-speed">
+                        <option value="0.5">0.5x</option>
+                        <option value="0.75">0.75x</option>
+                        <option value="0.9">0.9x</option>
+                        <option value="1" selected>1.0x</option>
+                        <option value="1.1">1.1x</option>
+                        <option value="1.25">1.25x</option>
+                        <option value="1.5">1.5x</option>
+                        <option value="1.75">1.75x</option>
+                        <option value="2">2.0x</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="marker-controls">
+                <div class="marker-buttons">
+                    <button id="add-marker" title="現在位置にマーカーを追加">マーカー追加</button>
+                    <button id="add-timestamp" title="現在位置のタイムスタンプをテキストに挿入">タイムスタンプ挿入</button>
+                    <button id="add-unclear-mark" title="聞き取れない箇所をマーク">不明瞭箇所マーク</button>
+                </div>
+                <div class="marker-list-container">
+                    <h3>マーカー一覧</h3>
+                    <ul id="marker-list"></ul>
+                </div>
+            </div>
+        </section>
+        
+        <section class="text-panel">
+            <div class="search-container">
+                <input type="text" id="search-input" placeholder="テキスト検索..." />
+                <button id="search-prev" title="前を検索">▲</button>
+                <button id="search-next" title="次を検索">▼</button>
+                <span id="search-results">0/0</span>
+            </div>
+            <textarea id="transcript-editor" placeholder="文字起こしファイルを読み込むか、ここに直接入力してください。"></textarea>
+            <div class="editor-controls">
+                <button id="save-text" title="テキストを保存">保存</button>
+                <div class="auto-save">
+                    <input type="checkbox" id="auto-save">
+                    <label for="auto-save">自動保存（ローカル）</label>
+                </div>
+            </div>
+        </section>
+        
+        <!-- ショートカットモーダル -->
+        <div id="shortcuts-modal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h2>キーボードショートカット</h2>
+                <table>
+                    <tr>
+                        <th>キー</th>
+                        <th>機能</th>
+                    </tr>
+                    <tr>
+                        <td>スペース</td>
+                        <td>再生/一時停止</td>
+                    </tr>
+                    <tr>
+                        <td>左矢印</td>
+                        <td>5秒巻き戻し</td>
+                    </tr>
+                    <tr>
+                        <td>右矢印</td>
+                        <td>5秒早送り</td>
+                    </tr>
+                    <tr>
+                        <td>M</td>
+                        <td>マーカー追加</td>
+                    </tr>
+                    <tr>
+                        <td>T</td>
+                        <td>タイムスタンプ挿入</td>
+                    </tr>
+                    <tr>
+                        <td>Q</td>
+                        <td>不明瞭箇所マーク</td>
+                    </tr>
+                    <tr>
+                        <td>Ctrl+F</td>
+                        <td>テキスト検索</td>
+                    </tr>
+                    <tr>
+                        <td>Ctrl+S</td>
+                        <td>テキスト保存</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </main>
+    
+    <footer>
+        <p>© 2025 音声文字起こし修正ツール - 完全オフラインで動作します</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
